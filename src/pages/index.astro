@@ -1,6 +1,9 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import  {games} from '../components/games';
+import { YouTube } from 'astro-embed';
+import Test from '../components/test'; 
+
 
 // let view = 'all';
 // let sliceValue = 8;
@@ -23,8 +26,12 @@ const filteredgames =  games;
 		<div class="flex flex-col justify-center items-center p-10 w-10/12 md:w-[45rem] mt-5 text-center md:rounded-none rounded-lg bg-[url('/cage3.png')] bg-orange-800 font-LuckiestGuy ">
 		  <h1 class="text-4xl ">Let's Get a bit Nostalgic Eh?</h1>
 		</div>
-		<div class="flex gap-3 mt-10">
-		  <!-- <button
+		<Test client:load />
+
+
+		<!-- <div class="flex gap-3 mt-10">
+
+		  <button
 			class={`${view === 'all' ? 'bg-blue-700' : 'bg-blue-500'} hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-3xl border border-blue-500 shadow-2xl`}
 		  >
 			All Games
@@ -33,19 +40,17 @@ const filteredgames =  games;
 			class={`${view === 'phone' ? 'bg-blue-700' : 'bg-blue-500'} hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-3xl border border-blue-500 shadow-2xl`}
 		  >
 			Playable On Phone
-		  </button> -->
+		  </button>
 		</div>
-	  
+	   -->
 		<!-- Card List -->
-		<div class="flex flex-wrap justify-center gap-8 mt-10">
-		  <!-- {games.map((video) => (
+		<div class="md:flex md:flex-wrap justify-center grid grid-cols-1 gap-8 mt-10">
+		  {games.map((video) => (
 			<div class="flex flex-col items-center border-b pb-3 ">
-			  <iframe
-				class="h-96 md:w-96 rounded-lg mt-3 shadow"
-				src={video.url}
-				sandbox="allow-scripts allow-same-origin"
-				allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-			  ></iframe>
+			<YouTube
+              id={video.url}
+              class="h-96 w-64 md:w-96 rounded-lg mt-3 shadow"
+            />
 			  <div class="flex justify-center items-center ">
 				<h1 class="md:text-xl text-lg font-LuckiestGuy mt-2">{video.title}</h1>
 				{/* {video.playableOnPhone && <ImMobile class="h-6 w-6 pt-1 " />} */}
@@ -53,12 +58,15 @@ const filteredgames =  games;
 			  <h1 class=" font-LuckiestGuy mt-2 bg-red-700 p-2 rounded-lg">{video.platform}</h1>
 			  {video.available &&
 				video.links.map((link) => (
-				  <a  class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg mt-3 shadow" target="_blank" href={`./games/${video.id}`} rel="noreferrer">
-					Play Now
-				  </a>
+				<a class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg mt-3 shadow" 
+   target="_blank" 
+   href={`./games/${video.id.toString()}`} 
+   rel="noreferrer">
+    Play Now
+</a>
 				))}
 			</div>
-		  ))} -->
+		  ))}
 		</div>
 		<!-- {sliceValue < filteredgames.length && (
 		  <button onclick={() => increaseSliceValue()} class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-3xl border border-blue-500 shadow-2xl mt-5">

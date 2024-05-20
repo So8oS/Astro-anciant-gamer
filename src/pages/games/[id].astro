@@ -1,0 +1,33 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { games } from '../../components/games';
+
+const { id } = Astro.params;
+const game = games.find((game) => game.id.toString() === id);
+
+export async function getStaticPaths() {
+  return games.map((game) => ({
+    params: { id: game.id.toString() },
+  }));
+}
+---
+
+<Layout title={game ? game.title : "Game Not Found"}>
+  <div class="flex flex-col justify-center items-center w-3/4 text-center">
+    {game ? (
+      <>
+        <h1 class="text-3xl font-LuckiestGuy mt-5">{game.title}</h1>
+        <iframe
+          class="w-full h-[25rem] md:h-[45rem] mt-10"
+          src={game.links[0].url}
+          allowfullscreen="true"
+          
+        ></iframe> 
+        <h1 class="bg-black p-2 rounded-2xl mt-5">All of the games are embedded from different websites</h1>
+        <h1 class="bg-orange-800 p-4 rounded-2xl mt-2">Right click/long press {"=>"} Enter Full Screen to play with full screen</h1>
+      </>
+    ) : (
+      <h1 class="text-3xl font-LuckiestGuy mt-5">Game Not Found</h1>
+    )}
+  </div>
+</Layout>
